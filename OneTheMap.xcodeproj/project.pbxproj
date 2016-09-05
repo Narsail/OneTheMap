@@ -11,10 +11,14 @@
 		2A27BA8A1D743CDA007EF75F /* UdacityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27BA891D743CDA007EF75F /* UdacityAPI.swift */; };
 		2A27BA8C1D743E64007EF75F /* SessionRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27BA8B1D743E64007EF75F /* SessionRequests.swift */; };
 		2A27BA8E1D743F7D007EF75F /* SessionOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27BA8D1D743F7D007EF75F /* SessionOperations.swift */; };
+		2A38DD411D7DD58500C23689 /* ErrorMessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38DD401D7DD58500C23689 /* ErrorMessageHandling.swift */; };
+		2AB406861D79444900AD0A3E /* UdacityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB406851D79444900AD0A3E /* UdacityUser.swift */; };
+		2AB406881D79450700AD0A3E /* UdacityUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB406871D79450700AD0A3E /* UdacityUserRequest.swift */; };
+		2AB4068A1D79493800AD0A3E /* UdacityUserOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB406891D79493800AD0A3E /* UdacityUserOperations.swift */; };
+		2AB4068C1D794A8E00AD0A3E /* UdacityUserResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB4068B1D794A8E00AD0A3E /* UdacityUserResponseMapper.swift */; };
 		2AD29CC21D761B4200600AB4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CC11D761B4200600AB4 /* LoginViewController.swift */; };
 		2AD29CC41D761D3100600AB4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CC31D761D3100600AB4 /* MapViewController.swift */; };
 		2AD29CC81D761D9600600AB4 /* LocationInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CC71D761D9600600AB4 /* LocationInputViewController.swift */; };
-		2AD29CCA1D761DA500600AB4 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CC91D761DA500600AB4 /* URLInputViewController.swift */; };
 		2AD29CCC1D7627F100600AB4 /* SessionMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CCB1D7627F100600AB4 /* SessionMapper.swift */; };
 		2AD29CCE1D76343100600AB4 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CCD1D76343100600AB4 /* ListTableViewController.swift */; };
 		2AD29CD01D76352600600AB4 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD29CCF1D76352600600AB4 /* SessionManager.swift */; };
@@ -40,10 +44,14 @@
 		2A27BA891D743CDA007EF75F /* UdacityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAPI.swift; sourceTree = "<group>"; };
 		2A27BA8B1D743E64007EF75F /* SessionRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRequests.swift; sourceTree = "<group>"; };
 		2A27BA8D1D743F7D007EF75F /* SessionOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionOperations.swift; sourceTree = "<group>"; };
+		2A38DD401D7DD58500C23689 /* ErrorMessageHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageHandling.swift; sourceTree = "<group>"; };
+		2AB406851D79444900AD0A3E /* UdacityUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUser.swift; sourceTree = "<group>"; };
+		2AB406871D79450700AD0A3E /* UdacityUserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUserRequest.swift; sourceTree = "<group>"; };
+		2AB406891D79493800AD0A3E /* UdacityUserOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUserOperations.swift; sourceTree = "<group>"; };
+		2AB4068B1D794A8E00AD0A3E /* UdacityUserResponseMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUserResponseMapper.swift; sourceTree = "<group>"; };
 		2AD29CC11D761B4200600AB4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2AD29CC31D761D3100600AB4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2AD29CC71D761D9600600AB4 /* LocationInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationInputViewController.swift; sourceTree = "<group>"; };
-		2AD29CC91D761DA500600AB4 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
 		2AD29CCB1D7627F100600AB4 /* SessionMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionMapper.swift; sourceTree = "<group>"; };
 		2AD29CCD1D76343100600AB4 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		2AD29CCF1D76352600600AB4 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -77,12 +85,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2A27BA861D7434EE007EF75F /* Authentification */ = {
+		2A27BA861D7434EE007EF75F /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				2A27BA871D7434F9007EF75F /* ParseAuth.swift */,
 			);
-			name = Authentification;
+			name = Authentication;
 			sourceTree = "<group>";
 		};
 		2AD29CC01D761B2000600AB4 /* ViewController */ = {
@@ -91,7 +99,6 @@
 				2AD29CC11D761B4200600AB4 /* LoginViewController.swift */,
 				2AD29CC31D761D3100600AB4 /* MapViewController.swift */,
 				2AD29CC71D761D9600600AB4 /* LocationInputViewController.swift */,
-				2AD29CC91D761DA500600AB4 /* URLInputViewController.swift */,
 				2AD29CCD1D76343100600AB4 /* ListTableViewController.swift */,
 			);
 			name = ViewController;
@@ -148,7 +155,7 @@
 		2AE424DE1D73810900A6807D /* Networks */ = {
 			isa = PBXGroup;
 			children = (
-				2A27BA861D7434EE007EF75F /* Authentification */,
+				2A27BA861D7434EE007EF75F /* Authentication */,
 				2AE424F71D73924200A6807D /* Foundation */,
 				2AE424F41D73911A00A6807D /* Operations */,
 				2AE424F31D73911000A6807D /* Requests */,
@@ -164,6 +171,8 @@
 			children = (
 				2AE424E81D73825E00A6807D /* StudentInformation.swift */,
 				2AD29CCF1D76352600600AB4 /* SessionManager.swift */,
+				2AB406851D79444900AD0A3E /* UdacityUser.swift */,
+				2A38DD401D7DD58500C23689 /* ErrorMessageHandling.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -171,10 +180,9 @@
 		2AE424F21D738CBC00A6807D /* Mapping */ = {
 			isa = PBXGroup;
 			children = (
-				2AE424F01D73871000A6807D /* ParsedItems.swift */,
 				2AE424EE1D73836E00A6807D /* StudentInformationMapper.swift */,
-				2AE424EC1D73835B00A6807D /* ResponseMapper.swift */,
 				2AD29CCB1D7627F100600AB4 /* SessionMapper.swift */,
+				2AB4068B1D794A8E00AD0A3E /* UdacityUserResponseMapper.swift */,
 			);
 			name = Mapping;
 			sourceTree = "<group>";
@@ -184,6 +192,7 @@
 			children = (
 				2AE424EA1D73835200A6807D /* StudentInformationRequests.swift */,
 				2A27BA8B1D743E64007EF75F /* SessionRequests.swift */,
+				2AB406871D79450700AD0A3E /* UdacityUserRequest.swift */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -193,6 +202,7 @@
 			children = (
 				2AE424E21D73816A00A6807D /* StudentInformationOperation.swift */,
 				2A27BA8D1D743F7D007EF75F /* SessionOperations.swift */,
+				2AB406891D79493800AD0A3E /* UdacityUserOperations.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -200,6 +210,8 @@
 		2AE424F71D73924200A6807D /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				2AE424F01D73871000A6807D /* ParsedItems.swift */,
+				2AE424EC1D73835B00A6807D /* ResponseMapper.swift */,
 				2AE424DF1D73816A00A6807D /* BackendConfiguration.swift */,
 				2AE424E01D73816A00A6807D /* BackendOperations.swift */,
 				2AE424E11D73816A00A6807D /* BackendService.swift */,
@@ -280,10 +292,13 @@
 			files = (
 				2AD29CCC1D7627F100600AB4 /* SessionMapper.swift in Sources */,
 				2AE424E31D73816A00A6807D /* BackendConfiguration.swift in Sources */,
+				2AB406881D79450700AD0A3E /* UdacityUserRequest.swift in Sources */,
 				2A27BA8A1D743CDA007EF75F /* UdacityAPI.swift in Sources */,
 				2AE424E91D73825E00A6807D /* StudentInformation.swift in Sources */,
+				2AB4068C1D794A8E00AD0A3E /* UdacityUserResponseMapper.swift in Sources */,
 				2AE424E41D73816A00A6807D /* BackendOperations.swift in Sources */,
 				2AE424EF1D73836E00A6807D /* StudentInformationMapper.swift in Sources */,
+				2AB406861D79444900AD0A3E /* UdacityUser.swift in Sources */,
 				2AD29CCE1D76343100600AB4 /* ListTableViewController.swift in Sources */,
 				2AE424CD1D7380FF00A6807D /* AppDelegate.swift in Sources */,
 				2A27BA881D7434F9007EF75F /* ParseAuth.swift in Sources */,
@@ -292,12 +307,13 @@
 				2AE424ED1D73835B00A6807D /* ResponseMapper.swift in Sources */,
 				2A27BA8E1D743F7D007EF75F /* SessionOperations.swift in Sources */,
 				2AE424F11D73871000A6807D /* ParsedItems.swift in Sources */,
+				2AB4068A1D79493800AD0A3E /* UdacityUserOperations.swift in Sources */,
 				2A27BA8C1D743E64007EF75F /* SessionRequests.swift in Sources */,
 				2AD29CC81D761D9600600AB4 /* LocationInputViewController.swift in Sources */,
+				2A38DD411D7DD58500C23689 /* ErrorMessageHandling.swift in Sources */,
 				2AD29CC21D761B4200600AB4 /* LoginViewController.swift in Sources */,
 				2AE424E61D73816A00A6807D /* StudentInformationOperation.swift in Sources */,
 				2AE424F91D73925800A6807D /* ParseAPI.swift in Sources */,
-				2AD29CCA1D761DA500600AB4 /* URLInputViewController.swift in Sources */,
 				2AE424EB1D73835200A6807D /* StudentInformationRequests.swift in Sources */,
 				2AD29CD41D76BFFA00600AB4 /* StudentLocationTableViewCell.swift in Sources */,
 				2AD29CC41D761D3100600AB4 /* MapViewController.swift in Sources */,

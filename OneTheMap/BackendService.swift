@@ -12,7 +12,7 @@ enum BackendServiceError: ErrorType {
 	case responseCode(code: Int)
 }
 
-class AuthenticationService {
+class UdacityService {
 	
 	private let conf: BackendConfiguration
 	private let service: NetworkService!
@@ -61,7 +61,7 @@ class AuthenticationService {
 	}
 }
 
-class DataService {
+class ParseService {
 	
 	private let conf: BackendConfiguration
 	private let service: NetworkService!
@@ -75,7 +75,14 @@ class DataService {
 	             success: ((AnyObject?) -> Void)? = nil,
 	             failure: ((ErrorType) -> Void)? = nil) {
 		
-		let url = conf.baseURL.URLByAppendingPathComponent(request.endpoint)
+		var url = NSURL(fileURLWithPath: request.endpoint, relativeToURL: conf.baseURL) // conf.baseURL.URLByAppendingPathComponent(request.endpoint)
+		// Comment: I got no idea why the upper NSURL merging code is producing an URL like:
+		// "https://parse.udacity.com/parse/classes/StudentLocation%3where=%7B%22uniqueKey%22:%223062908616%22%7D"
+		// The following code is a workaround to get the GET Request at least working.
+		if request is StudentInformationGETRequest {
+			let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%223062908616%22%7D"
+			url = NSURL(string: urlString)!
+		}
 		
 		var headers = request.headers
 		// Set authentication token if available.

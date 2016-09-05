@@ -111,8 +111,8 @@ struct StudentInformationPUTRequest: BackendAPIRequest {
 	let studentInformation: StudentInformation
 	
 	var endpoint: String {
-		
-		return "classes/StudentLocation/\(studentInformation.objectID)"
+
+		return "classes/StudentLocation/\(studentInformation.objectID)/"
 		
 	}
 	

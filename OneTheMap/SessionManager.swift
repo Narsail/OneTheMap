@@ -8,27 +8,34 @@
 
 import Foundation
 
+/// This Manager handles the State of the App
+
 final class SessionManager {
 	
 	internal static let shared = SessionManager()
 	
-	private(set) var sessionID: String?
-	private(set) var studentLocationList = [StudentInformation]()
+	var sessionID: String?
 	
-	var reloadNecessary: Bool {
-		return studentLocationList.isEmpty
+	var accountKey: String?
+	
+	var user: UdacityUser?
+	
+	var ownInformation: StudentInformation?
+	
+	var studentLocationList = [StudentInformation]() {
+		didSet {
+			self.reloadNecessary = false
+			// Sort the Locations
+			self.studentLocationList.sortInPlace({ locationOne, locationTwo in
+				return locationOne.updatedAt.compare(locationTwo.updatedAt) == NSComparisonResult.OrderedDescending
+			})
+		}
 	}
+	
+	var reloadNecessary: Bool = true
 	
 	private init() {
 		
-	}
-	
-	func set(sessionID: String) {
-		self.sessionID = sessionID
-	}
-	
-	func set(studentLocationList: [StudentInformation]) {
-		self.studentLocationList = studentLocationList
 	}
 	
 }

@@ -46,58 +46,70 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		loginButton.enabled = enabled
 	}
 	
-	// MARK: - Internal Methods
+	func startAcitivityIndicator() {
+		// Set Indicatior Active
+		activityIndicatorView.hidden = false
+		activityIndicatorView.startAnimating()
+	}
 	
-	func showErrorMessage(error: ErrorType) {
-		// Set the Error Title and Message
-		var title = ""
-		var message = ""
-		switch error {
-		case LoginError.NoCredentialsProvided:
-			title = "Credentials are missing."
-			message = "Please provide an Email and a Password for the Login."
-		case BackendServiceError.responseCode(code: let code) where code == 403:
-			title = "Incorrect Credentials."
-			message = "Your Email or password was incorrect."
-		default:
-			title = "An Error occurred."
-			message = "Error: \(error)"
-		}
-		
-		// Present the Alert View
-		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-		self.presentViewController(alert, animated: true, completion: nil)
-		return
+	func stopActivityIndicator() {
+		activityIndicatorView.stopAnimating()
+		activityIndicatorView.hidden = true
 	}
 	
 	// MARK: - Actions
 	
 	@IBAction func login(sender: AnyObject) {
+		
+		// Error Function
+		func errorOccurred(error: ErrorType) {
+			dispatch_async(dispatch_get_main_queue(), {
+				self.stopActivityIndicator()
+				showError(error, viewController: self)
+				self.enabledInputs(true)
+			})
+		}
+		
+		
 		guard let email = emailTextField.text where email != "", let password = passwordTextField.text where password != "" else {
-			showErrorMessage(LoginError.NoCredentialsProvided)
+			showError(LoginError.NoCredentialsProvided, viewController: self)
 			return
 		}
-		// Set Indicatior Active
-		activityIndicatorView.hidden = false
-		activityIndicatorView.startAnimating()
+		
+		startAcitivityIndicator()
 		// Disable Input Views like the Textfields and the Login Button
 		enabledInputs(false)
 		
-		UdacityAPI.shared.login(withEmail: email, withPassword: password, withCompletionHandler: { sessionID in
-			dispatch_async(dispatch_get_main_queue(), {
-				// Save Session ID
-				SessionManager.shared.set(sessionID)
-				// Segue to Table View
-				self.performSegueWithIdentifier("loginSegue", sender: self)
+		// A lot of nested Methods. Could be solved more elegant with the use of a Promise/Result Pattern.
+		
+		UdacityAPI.shared.login(withEmail: email, withPassword: password, withCompletionHandler: { sessionID, accountKey in
+			// Save Session ID
+			SessionManager.shared.sessionID = sessionID
+			SessionManager.shared.accountKey = accountKey
+			
+			// Fetch User Data
+			UdacityAPI.shared.fetchUserData(withCompletionHandler: { user in
+				SessionManager.shared.user = user
+				
+				// Look/Fetch own Information
+				ParseAPI.shared.fetchStudentInformation(user.uniqueKey, withCompletionHandler: { information in
+					SessionManager.shared.ownInformation = information
+					dispatch_async(dispatch_get_main_queue(), {
+						self.stopActivityIndicator()
+						self.enabledInputs(true)
+						// Segue to Table View
+						self.performSegueWithIdentifier("loginSegue", sender: self)
+					})
+					
+				}, withErrorHandler: { error in
+					errorOccurred(error)
+				})
+				
+			}, withErrorHandler: { error in
+				errorOccurred(error)
 			})
 		}, withErrorHandler: { error in
-			dispatch_async(dispatch_get_main_queue(), {
-				self.activityIndicatorView.stopAnimating()
-				self.activityIndicatorView.hidden = true
-				self.showErrorMessage(error)
-				self.enabledInputs(true)
-			})
+			errorOccurred(error)
 		})
 	}
 	

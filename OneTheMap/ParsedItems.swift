@@ -16,4 +16,12 @@ extension String: ParsedItem {
 	
 }
 
+extension Dictionary: ParsedItem {
+	
+}
+
+extension UdacityUser: ParsedItem {
+	
+}
+
 public protocol ParsedItem {}

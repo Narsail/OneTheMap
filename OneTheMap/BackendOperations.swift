@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class AuthenticationServiceOperation: NetworkOperation {
+public class UdacityServiceOperation: NetworkOperation {
 	
-	let service: AuthenticationService
+	let service: UdacityService
 	
 	public init(backendConfiguration: BackendConfiguration) {
-		self.service = AuthenticationService(backendConfiguration)
+		self.service = UdacityService(backendConfiguration)
 		super.init()
 	}
 	
@@ -23,12 +23,12 @@ public class AuthenticationServiceOperation: NetworkOperation {
 	}
 }
 
-public class DataServiceOperation: NetworkOperation {
+public class ParseServiceOperation: NetworkOperation {
 	
-	let service: DataService
+	let service: ParseService
 	
 	public init(backendConfiguration: BackendConfiguration) {
-		self.service = DataService(backendConfiguration)
+		self.service = ParseService(backendConfiguration)
 		super.init()
 	}
 	

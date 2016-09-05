@@ -34,7 +34,7 @@ class StudentInformationAnnotation: NSObject, MKAnnotation {
 
 struct StudentInformation {
 	
-	let objectID: String
+	var objectID: String
 	let uniqueKey: String
 	let firstName: String
 	let lastName: String

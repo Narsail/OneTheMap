@@ -53,10 +53,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
     
 	@IBAction func setPin(sender: AnyObject) {
-		let alert = UIAlertController(title: "Save the Workout.", message: "Are you sure you want to save?", preferredStyle: UIAlertControllerStyle.Alert)
+		if let _ = SessionManager.shared.ownInformation {
+			let alert = UIAlertController(title: "Location exists already.", message: "You posted a Location already. Do you want to override it?", preferredStyle: UIAlertControllerStyle.Alert)
+			alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
+			alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { action in
+				self.performSegueWithIdentifier("showInputSegue", sender: self)
+			}))
+			self.presentViewController(alert, animated: true, completion: nil)
+		} else {
+			self.performSegueWithIdentifier("showInputSegue", sender: self)
+		}
+		
+	}
+	
+	@IBAction func logout(sender: AnyObject) {
+		let alert = UIAlertController(title: "Log out.", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
 		alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { action in
-			
+			// Remove Session
+			SessionManager.shared.sessionID = nil
+			self.dismissViewControllerAnimated(true, completion: nil)
 		}))
 		self.presentViewController(alert, animated: true, completion: nil)
 	}
@@ -66,14 +82,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	func fetchStudentInformationList() {
 		setLoadingView()
 		ParseAPI.shared.fetchStudentInformationList(withCompletionHandler: { list in
+			SessionManager.shared.studentLocationList = list
 			dispatch_async(dispatch_get_main_queue(), {
-				SessionManager.shared.set(list)
 				self.setReloadView()
 				self.showAnnotations()
 			})
 		}, withErrorHandler: { error in
 			dispatch_async(dispatch_get_main_queue(), {
-				self.showErrorMessage(error)
+				showError(error, viewController: self)
 				self.setReloadView()
 			})
 		})
@@ -87,28 +103,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		mapView.addAnnotations(annotations)
 		// Zoom out to show all Annotations
 		mapView.showAnnotations(mapView.annotations, animated: true)
-	}
-	
-	// MARK: - Internal Methods
-	
-	func showErrorMessage(error: ErrorType) {
-		// Set the Error Title and Message
-		var title = ""
-		var message = ""
-		switch error {
-		default:
-			title = "An Error occurred."
-			message = "Error: \(error)"
-		}
-		
-		showErrorMessage(withTitle: title, withErrorMessage: message)
-	}
-	
-	func showErrorMessage(withTitle title: String, withErrorMessage errorMessage: String) {
-		// Present the Alert View
-		let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-		self.presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	// MARK: - Delegate Methods
@@ -139,7 +133,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		let studentAnnotationView = view.annotation as! StudentInformationAnnotation
 		
 		func showURLError() {
-			showErrorMessage(withTitle: "No URL provided.", withErrorMessage: "The selected Entry doesn't provide a valid URL.")
+			showErrorMessage(withTitle: "No URL provided.", withErrorMessage: "The selected Entry doesn't provide a valid URL.", viewController: self)
 		}
 		
 		let urlString = studentAnnotationView.studentInformation.mediaURL

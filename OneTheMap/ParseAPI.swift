@@ -8,6 +8,9 @@
 
 import Foundation
 
+// Comment: The whole structure of the Network Layer is written according to the following Blog Entry:
+// http://szulctomasz.com/how-do-I-build-a-network-layer/?utm_campaign=iOS%2BDev%2BWeekly&utm_medium=email&utm_source=iOS_Dev_Weekly_Issue_263
+
 final class ParseAPI {
 	
 	internal static let shared = ParseAPI()
@@ -32,34 +35,34 @@ final class ParseAPI {
 	}
 	
 	/// Fetch a Student Location
-	func fetchStudentInformation(uniqueKey: String, withCompletionHandler completionHandler: (studentInformation: StudentInformation) -> (Void), withErrorHandler errorHandler: (error: ErrorType) -> Void) {
+	func fetchStudentInformation(uniqueKey: String, withCompletionHandler completionHandler: (studentInformation: StudentInformation?) -> (Void), withErrorHandler errorHandler: (error: ErrorType) -> Void) {
 		let request = StudentInformationGETRequest(uniqueKey: uniqueKey)
 		let studentInformationListOperation = StudentInformationGETOperation(request: request, backendConfiguration: configuration, success: { location in
 			completionHandler(studentInformation: location)
-			}, failure: { error in
+		}, failure: { error in
 				errorHandler(error: error)
 		})
 		backendQueue.addOperation(studentInformationListOperation)
 	}
 	
 	/// Post a Student Location
-	func postStudentInformation(studentInformation: StudentInformation, completionHandler: (successful: Bool, error: ErrorType?) -> (Void)) {
+	func postStudentInformation(studentInformation: StudentInformation, withCompletionHandler completionHandler: (Void) -> (Void), withErrorHandler errorHandler: (error: ErrorType) -> Void) {
 		let request = StudentInformationPOSTRequest(studentInformation: studentInformation)
 		let studentInformationListOperation = StudentInformationPOSTOperation(request: request, backendConfiguration: configuration, success: { _ in
-			completionHandler(successful: true, error: nil)
-			}, failure: { error in
-				completionHandler(successful: false, error: error)
+			completionHandler()
+		}, failure: { error in
+			errorHandler(error: error)
 		})
 		backendQueue.addOperation(studentInformationListOperation)
 	}
 	
 	/// Put a Student Location
-	func putStudentInformation(studentInformation: StudentInformation, completionHandler: (successful: Bool, error: ErrorType?) -> (Void)) {
+	func putStudentInformation(studentInformation: StudentInformation, withCompletionHandler completionHandler: (Void) -> (Void), withErrorHandler errorHandler: (error: ErrorType) -> Void) {
 		let request = StudentInformationPUTRequest(studentInformation: studentInformation)
 		let studentInformationListOperation = StudentInformationPUTOperation(request: request, backendConfiguration: configuration, success: { _ in
-			completionHandler(successful: true, error: nil)
-			}, failure: { error in
-				completionHandler(successful: false, error: error)
+			completionHandler()
+		}, failure: { error in
+			errorHandler(error: error)
 		})
 		backendQueue.addOperation(studentInformationListOperation)
 	}

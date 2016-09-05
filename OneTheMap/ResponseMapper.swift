@@ -42,4 +42,5 @@ protocol ResponseMapperProtocol {
 internal enum ResponseMapperError: ErrorType {
 	case invalid
 	case missingAttribute(attribute: String)
+	case empty
 }
