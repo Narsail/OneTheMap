@@ -30,7 +30,7 @@ func errorMessageComponents(error: ErrorType) -> (String, String) {
 	case LoginError.NoCredentialsProvided:
 		title = "Credentials are missing."
 		message = "Please provide an Email and a Password for the Login."
-	case BackendServiceError.responseCode(code: let code) where code == 403:
+	case BackendServiceError.responseCode(code: let code, response: _) where code == 403:
 		title = "Incorrect Credentials."
 		message = "Your Email or password was incorrect. In some rare cases an internal error occurred. Please contact our Support Team if the problem persists."
 	default:
