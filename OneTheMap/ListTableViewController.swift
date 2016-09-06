@@ -9,17 +9,11 @@
 import UIKit
 
 class ListTableViewController: UITableViewController {
-	
-	private var studentInformationList: [StudentInformation] {
-		return SessionManager.shared.studentLocationList
-	}
 
 	// MARK: - Controller LifeCycle
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
-		setReloadView()
 		
 		if SessionManager.shared.reloadNecessary {
 			fetchStudentInformationList()
@@ -33,13 +27,13 @@ class ListTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentInformationList.count
+        return SessionManager.shared.studentLocationList.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("StudentLocationTableViewCell", forIndexPath: indexPath) as! StudentLocationTableViewCell
 		
-		let studentInformation = studentInformationList[indexPath.row]
+		let studentInformation = SessionManager.shared.studentLocationList[indexPath.row]
 
         // Configure the cell...
 		cell.studentNameLabel.text = "\(studentInformation.firstName) \(studentInformation.lastName)"
@@ -53,8 +47,8 @@ class ListTableViewController: UITableViewController {
 			showErrorMessage(withTitle: "No URL provided.", withErrorMessage: "The selected Entry doesn't provide a valid URL.", viewController: self)
 		}
 		
-		let urlString = studentInformationList[indexPath.row].mediaURL
-		guard urlString != "", let url = NSURL(string: studentInformationList[indexPath.row].mediaURL) else {
+		let urlString = SessionManager.shared.studentLocationList[indexPath.row].mediaURL
+		guard urlString != "", let url = NSURL(string: SessionManager.shared.studentLocationList[indexPath.row].mediaURL) else {
 			showURLError()
 			return
 		}
@@ -66,25 +60,7 @@ class ListTableViewController: UITableViewController {
 		}
 	}
 	
-	// MARK: - View Settings
-	
-	func setReloadView() {
-		let reloadView = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: #selector(ListTableViewController.reload(_:)))
-		self.navigationItem.rightBarButtonItem = reloadView
-	}
-	
-	func setLoadingView() {
-		let activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .Gray)
-		let loadingView = UIBarButtonItem(customView: activityIndicator)
-		self.navigationItem.rightBarButtonItem = loadingView
-		activityIndicator.startAnimating()
-	}
-	
 	// MARK: - Actions
-	
-	func reload(sender: AnyObject) {
-		fetchStudentInformationList()
-	}
 	
 	@IBAction func setPin(sender: AnyObject) {
 		if let _ = SessionManager.shared.ownInformation {
@@ -113,17 +89,14 @@ class ListTableViewController: UITableViewController {
 	// MARK: - Data Operations
 	
 	func fetchStudentInformationList() {
-		setLoadingView()
 		ParseAPI.shared.fetchStudentInformationList(withCompletionHandler: { list in
 			SessionManager.shared.studentLocationList = list
 			dispatch_async(dispatch_get_main_queue(), {
-				self.setReloadView()
 				self.tableView.reloadData()
 			})
 		}, withErrorHandler: { error in
 			dispatch_async(dispatch_get_main_queue(), {
 				showError(error, viewController: self)
-				self.setReloadView()
 			})
 		})
 	}

@@ -166,21 +166,25 @@ class LocationInputViewController: UIViewController, UITextFieldDelegate {
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		/// To hide the Keyboard on a return Button click
 		textField.resignFirstResponder()
+		if locationTextField === textField {
+			// Check if the entered address is valid
+			geoCodeAddress(locationTextField.text!)
+		}
 		return false
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		if urlTextField === textField {
 			// Check if the entered address is valid
+			urlTextField.returnKeyType = .Done
 			geoCodeAddress(locationTextField.text!)
+		}
+		if locationTextField === textField {
+			locationTextField.returnKeyType = .Go
+			
 		}
 	}
 	
-	func textFieldDidEndEditing(textField: UITextField) {
-		if locationTextField === textField {
-			// Check if the entered address is valid
-			geoCodeAddress(locationTextField.text!)
-		}
-	}
+
 
 }

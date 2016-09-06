@@ -9,7 +9,7 @@
 import Foundation
 
 enum BackendServiceError: ErrorType {
-	case responseCode(code: Int)
+	case responseCode(code: Int, response: NSURLResponse)
 }
 
 class UdacityService {
@@ -46,12 +46,12 @@ class UdacityService {
 			let	json = try? NSJSONSerialization.JSONObjectWithData(newData, options: [])
 			success?(json)
 
-		}, failure: { data, error, statusCode in
+		}, failure: { data, error, statusCode, response in
 			// Do stuff you need, and call failure block.
 			if error != nil {
 				failure?(error!)
 			} else {
-				failure?(BackendServiceError.responseCode(code: statusCode))
+				failure?(BackendServiceError.responseCode(code: statusCode, response: response!))
 			}
 		})
 	}
@@ -75,7 +75,7 @@ class ParseService {
 	             success: ((AnyObject?) -> Void)? = nil,
 	             failure: ((ErrorType) -> Void)? = nil) {
 		
-		var url = NSURL(fileURLWithPath: request.endpoint, relativeToURL: conf.baseURL) // conf.baseURL.URLByAppendingPathComponent(request.endpoint)
+		var url = NSURL(string: request.endpoint, relativeToURL: conf.baseURL)!
 		// Comment: I got no idea why the upper NSURL merging code is producing an URL like:
 		// "https://parse.udacity.com/parse/classes/StudentLocation%3where=%7B%22uniqueKey%22:%223062908616%22%7D"
 		// The following code is a workaround to get the GET Request at least working.
@@ -99,12 +99,12 @@ class ParseService {
 			}
 			success?(json)
 			
-			}, failure: { data, error, statusCode in
+			}, failure: { data, error, statusCode, response in
 				// Do stuff you need, and call failure block.
 				if error != nil {
 					failure?(error!)
 				} else {
-					failure?(BackendServiceError.responseCode(code: statusCode))
+					failure?(BackendServiceError.responseCode(code: statusCode, response: response!))
 				}
 				
 		})
@@ -129,7 +129,7 @@ class NetworkService {
 	             params: [String: AnyObject]? = nil,
 	             headers: [String: String]? = nil,
 	             success: ((NSData?) -> Void)? = nil,
-	             failure: ((data: NSData?, error: ErrorType?, responseCode: Int) -> Void)? = nil) {
+	             failure: ((data: NSData?, error: ErrorType?, responseCode: Int, response: NSURLResponse?) -> Void)? = nil) {
 	
 		
 		let mutableRequest = NSMutableURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData,
@@ -145,6 +145,10 @@ class NetworkService {
 			// Decide whether the response is success or failure and call
 			// proper callback.
 			
+			print("Data: \(data)")
+			print("response: \(response)")
+			print("error: \(error)")
+			
 			var responseCode = 0
 			
 			if let response = response as? NSHTTPURLResponse {
@@ -152,14 +156,14 @@ class NetworkService {
 			}
 			
 			if responseCode >= 300 {
-				failure?(data: data, error: error, responseCode: responseCode)
+				failure?(data: data, error: error, responseCode: responseCode, response: response)
 				return
 			}
 			
 			if data != nil && error == nil {
 				success?(data!)
 			} else {
-				failure?(data: data, error: error, responseCode: responseCode)
+				failure?(data: data, error: error, responseCode: responseCode, response: response)
 			}
 		})
 		

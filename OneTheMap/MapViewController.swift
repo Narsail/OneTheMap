@@ -14,10 +14,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	// Main View
 	@IBOutlet weak var mapView: MKMapView!
 	
-	private var studentInformationList: [StudentInformation] {
-		return SessionManager.shared.studentLocationList
-	}
-	
 	// MARK: - Controller LifeCycle
 	
 	override func viewWillAppear(animated: Bool) {
@@ -25,32 +21,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		
 		mapView.delegate = self
 		
-		setReloadView()
-		
 		if SessionManager.shared.reloadNecessary {
 			fetchStudentInformationList()
 		}
 	}
 	
-	// MARK: - View Settings
-	
-	func setReloadView() {
-		let reloadView = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: #selector(MapViewController.reload(_:)))
-		self.navigationItem.rightBarButtonItem = reloadView
-	}
-	
-	func setLoadingView() {
-		let activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .Gray)
-		let loadingView = UIBarButtonItem(customView: activityIndicator)
-		self.navigationItem.rightBarButtonItem = loadingView
-		activityIndicator.startAnimating()
-	}
-	
 	// MARK: - Actions
-	
-	func reload(sender: AnyObject) {
-		fetchStudentInformationList()
-	}
     
 	@IBAction func setPin(sender: AnyObject) {
 		if let _ = SessionManager.shared.ownInformation {
@@ -80,17 +56,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	// MARK: - Data Operations
 	
 	func fetchStudentInformationList() {
-		setLoadingView()
 		ParseAPI.shared.fetchStudentInformationList(withCompletionHandler: { list in
 			SessionManager.shared.studentLocationList = list
 			dispatch_async(dispatch_get_main_queue(), {
-				self.setReloadView()
 				self.showAnnotations()
 			})
 		}, withErrorHandler: { error in
 			dispatch_async(dispatch_get_main_queue(), {
 				showError(error, viewController: self)
-				self.setReloadView()
 			})
 		})
 	}
@@ -99,7 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		// Remove all Annotations
 		mapView.removeAnnotations(mapView.annotations)
 		// Add the full list
-		let annotations = studentInformationList.map({ StudentInformationAnnotation.init(studentInformation: $0) })
+		let annotations = SessionManager.shared.studentLocationList.map({ StudentInformationAnnotation.init(studentInformation: $0) })
 		mapView.addAnnotations(annotations)
 		// Zoom out to show all Annotations
 		mapView.showAnnotations(mapView.annotations, animated: true)

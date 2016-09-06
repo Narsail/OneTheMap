@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -46,7 +45,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="FF5-hJn-HAf-bBv" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yAH-er-0jE">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yAH-er-0jE">
                                 <rect key="frame" x="20" y="336" width="560" height="55"/>
                                 <color key="backgroundColor" red="0.2545803686" green="0.6564123852" blue="0.80185395079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -132,18 +131,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="t9P-Q9-jZp">
-                        <leftBarButtonItems>
-                            <barButtonItem image="Pin" id="4qv-3u-T3Y">
-                                <connections>
-                                    <action selector="setPin:" destination="gXO-Dr-cmp" id="y4Y-tz-VAY"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Logout" id="zLa-0s-Adg">
-                                <connections>
-                                    <action selector="logout:" destination="gXO-Dr-cmp" id="Mqp-dx-Dtn"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="zLa-0s-Adg">
+                            <connections>
+                                <action selector="logout:" destination="gXO-Dr-cmp" id="Mqp-dx-Dtn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Pin" id="4qv-3u-T3Y">
+                            <connections>
+                                <action selector="setPin:" destination="gXO-Dr-cmp" id="y4Y-tz-VAY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="WOL-rx-oKs" id="drj-w6-gu2"/>
@@ -301,18 +298,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="vT3-8O-rlu">
-                        <leftBarButtonItems>
-                            <barButtonItem image="Pin" id="Cs7-ZQ-Zaw">
-                                <connections>
-                                    <action selector="setPin:" destination="Mp9-m5-Hgd" id="9vA-dC-1f4"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Logout" id="Nhq-QW-WGp">
-                                <connections>
-                                    <action selector="logout:" destination="Mp9-m5-Hgd" id="rQj-Kq-tzD"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Nhq-QW-WGp">
+                            <connections>
+                                <action selector="logout:" destination="Mp9-m5-Hgd" id="rQj-Kq-tzD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Pin" id="Cs7-ZQ-Zaw">
+                            <connections>
+                                <action selector="setPin:" destination="Mp9-m5-Hgd" id="9vA-dC-1f4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="Etk-Hr-Ntk" kind="presentation" identifier="showInputSegue" id="7gN-Bo-qsm"/>
@@ -359,11 +354,11 @@
             </objects>
             <point key="canvasLocation" x="2224" y="30"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="ZBC-zH-A6m">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LYb-0I-4k7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="List" id="j8S-ST-w7b"/>
+                    <tabBarItem key="tabBarItem" title="" image="List" id="j8S-ST-w7b"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JGl-fC-jtJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

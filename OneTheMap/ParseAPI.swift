@@ -25,7 +25,7 @@ final class ParseAPI {
 	
 	/// Fetch a List of Student Locations
 	func fetchStudentInformationList(withCompletionHandler completionHandler: (studentInformationList: [StudentInformation]) -> (Void), withErrorHandler errorHandler: (error: ErrorType) -> Void) {
-		let request = StudentInformationListGETRequest(limit: nil, skip: nil, order: nil)
+		let request = StudentInformationListGETRequest(limit: 100, skip: nil, order: nil)
 		let studentInformationListOperation = StudentInformationListGETOperation(request: request, backendConfiguration: configuration, success: { list in
 			completionHandler(studentInformationList: list)
 		}, failure: { error in

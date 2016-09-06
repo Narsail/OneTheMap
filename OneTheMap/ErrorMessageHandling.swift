@@ -23,6 +23,7 @@ func showErrorMessage(withTitle title: String, withErrorMessage errorMessage: St
 }
 
 func errorMessageComponents(error: ErrorType) -> (String, String) {
+	NSLog("Error: \(error)")
 	var title = ""
 	var message = ""
 	switch error {
@@ -31,7 +32,7 @@ func errorMessageComponents(error: ErrorType) -> (String, String) {
 		message = "Please provide an Email and a Password for the Login."
 	case BackendServiceError.responseCode(code: let code) where code == 403:
 		title = "Incorrect Credentials."
-		message = "Your Email or password was incorrect."
+		message = "Your Email or password was incorrect. In some rare cases an internal error occurred. Please contact our Support Team if the problem persists."
 	default:
 		let nsError = error as NSError
 		switch nsError.code {
